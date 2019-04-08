@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Img } from '../../interfaces/img';
 import { ImgArray } from '../../interfaces/imageArray';
 import { UserService } from '../../services/user.service';
-import { AuthGlobalService } from '../../../../services/auth-global.service';
 
 @Component({
   selector: 'app-user-profile-images',
@@ -18,7 +17,7 @@ export class UserProfileImagesComponent implements OnInit {
     /**
      * Дані про потчного користувача
      */
-    public curentUser: string;
+    @Input() curentUser: string;
 
     /**
      * перелік зображень користувача для відображення
@@ -28,10 +27,7 @@ export class UserProfileImagesComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private auth: AuthGlobalService
-  ) {
-    this.curentUser = this.auth.getUserId;
-  }
+  ) {}
   /**
    * на етапі старту компоненти отримуємо зображення через сервіс
    */

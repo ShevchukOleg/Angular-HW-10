@@ -7,10 +7,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { SiteHeaderComponent } from './modules/header/components/site-header/site-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SiteHeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ export class AuthGlobalService {
     return localStorage.getItem('mlp_client_token');
   }
   get getUserId() {
-    return this.jwtHelper.decodeToken(this.getToken)['id'];
+    return this.getToken ? this.jwtHelper.decodeToken(this.getToken).id : null;
   }
   public isTokenExpired() {
     return this.jwtHelper.isTokenExpired(this.getToken);
