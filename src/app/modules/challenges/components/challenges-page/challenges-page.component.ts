@@ -13,7 +13,7 @@ export class ChallengesPageComponent implements OnInit {
   public tabCategory: string;
 
   constructor(
-    private challengesService: ChallengeService
+    public challengesService: ChallengeService
   ) { }
 
   ngOnInit() {

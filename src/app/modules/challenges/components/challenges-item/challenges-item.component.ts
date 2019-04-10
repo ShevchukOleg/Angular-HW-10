@@ -12,7 +12,6 @@ export class ChallengesItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.challenge);
-  }
 
+  }
 }

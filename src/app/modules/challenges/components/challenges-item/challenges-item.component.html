@@ -12,16 +12,16 @@
         </div>
         <div class="item-info d-flex flex-shrink-0 text-uppercase">
           <div class="awards d-flex flex-column justify-content-end">
-            <span class="count">{{ challenge.awards}}</span>
+            <span class="count">{{ challenge.awards | awardRound}}</span>
             <span class="desc text-overflow-ellipsis">Awards worth</span>
           </div>
           <div class="days borders d-flex flex-column justify-content-end">              
-            <!-- <span class="count" *appCountdown="challenge.is_active; endDat: challenge.end_date | date : 'short' : 'UTC'" style="font-size: 19px;"></span> -->
+            <span class="count" *appTimeCounter="challenge.end_date; isActive: challenge.is_active">End</span>
             <span class="desc text-overflow-ellipsis">{{ challenge.is_active ? 'Days left' : (challenge.is_closed ? (challenge.start_date | date) : '') }}</span>               
           </div> 
           <div class="votes d-flex flex-column justify-content-end">
             <ng-container *ngIf="challenge.is_active || (!challenge.is_active && challenge.is_closed)">
-              <span class="count">{{ challenge.votes}}</span>
+              <span class="count">{{ challenge.votes | likesView}}</span>
               <span class="desc text-overflow-ellipsis ">Votes</span>
             </ng-container>
             <ng-container *ngIf="!challenge.is_active && !challenge.is_closed">
