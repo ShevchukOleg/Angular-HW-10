@@ -9,18 +9,31 @@ import { ChallengeService } from '../../services/challenge.service';
   styleUrls: ['./challenges-page.component.css']
 })
 export class ChallengesPageComponent implements OnInit {
+  /**
+   * БД змагань однієї категорії
+   */
   public challenges: Array<Challenge>;
+  /**
+   * tabCategory - викор. для візуалізації активної категорії
+   */
   public tabCategory: string;
 
   constructor(
     public challengesService: ChallengeService
   ) { }
-
+/**
+ * при старті компоненти присвоюється стартова категорія змагань, віиконується запуск методу
+ * заватаження данних
+ */
   ngOnInit() {
     this.tabCategory = 'Upcoming';
     this.loadChallenges('Upcoming');
   }
-
+  /**
+   * loadChallenges - метод що звертається до сервісу за данними про змагання та
+   * піжписаний на відповідб серверу
+   * @param tagType - параметр що визначає ип змагань
+   */
   loadChallenges(tagType: string) {
     this.tabCategory = tagType;
 
@@ -28,5 +41,4 @@ export class ChallengesPageComponent implements OnInit {
       this.challenges = data;
     });
   }
-
 }

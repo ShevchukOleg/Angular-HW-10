@@ -6,8 +6,17 @@ import { Challenge } from '../../interfaces/challenge';
   templateUrl: './challenges-item.component.html',
   styleUrls: ['./challenges-item.component.css']
 })
+
+/**
+ * компонента одного змагання
+ */
 export class ChallengesItemComponent implements OnInit {
+  /**
+   * експериментальний параметр для передачі в директиву
+   */
   @Input() challenge: Challenge;
+  public challengeItemColor = 'blue';
+
 
   constructor() { }
 

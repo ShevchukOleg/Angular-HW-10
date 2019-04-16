@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ChallengeService {
   private apiUrl: string = environment.apiUrl;
   private httpOptions = {
@@ -22,12 +23,22 @@ export class ChallengeService {
     private http: HttpClient,
   ) { }
 
+  /**
+   * метод отримання із серверу змагань визначеної категорії
+   * @param tagType - категорія змагань
+   */
   public getChallenges(tagType: string): Observable<Array<Challenge>> {
+    /**
+     * об'єкт що описує категорію змагань
+     */
     const challengeType = {
       active: '0',
       closed: '0'
     };
 
+    /**
+     * тригер для вихначення характеристики запиту по категорії замагань
+     */
     switch (tagType) {
       case 'Open':
       challengeType.active = '1';
@@ -43,10 +54,15 @@ export class ChallengeService {
       break;
     }
 
+    /**
+     * змінна параметрів запиту на сервер
+     */
     let params = new HttpParams();
     params = params.append('isActive', challengeType.active);
     params = params.append('isClosed', challengeType.closed);
-
+    /**
+     * загальні HttpOptions
+     */
     const curentOptions = {
       headers: this.httpOptions.headers,
       params

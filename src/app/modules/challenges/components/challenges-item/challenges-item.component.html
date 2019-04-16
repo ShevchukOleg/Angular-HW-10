@@ -1,5 +1,5 @@
 <div class="challenges-item text-center">
-  <span class="item-title d-block">{{ challenge.challenge_name }}</span>
+  <span  [appColorChanger]="challengeItemColor" class="item-title d-block">{{ challenge.challenge_name }}</span>
   <a class="item-content d-block pos-relative overflow-hidden" href="">
     <img alt="" class="item-img transition" [src]="challenge.background" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
       <div class="item-overlay d-flex flex-column pos-absolute">
@@ -16,7 +16,7 @@
             <span class="desc text-overflow-ellipsis">Awards worth</span>
           </div>
           <div class="days borders d-flex flex-column justify-content-end">              
-            <span class="count" *appTimeCounter="challenge.end_date; isActive: challenge.is_active">End</span>
+            <span class="count" *appTimeCounter="challenge.end_date; isActive: challenge.is_active"></span>
             <span class="desc text-overflow-ellipsis">{{ challenge.is_active ? 'Days left' : (challenge.is_closed ? (challenge.start_date | date) : '') }}</span>               
           </div> 
           <div class="votes d-flex flex-column justify-content-end">

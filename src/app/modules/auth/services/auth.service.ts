@@ -54,7 +54,6 @@ export class AuthService {
   signUp(user: UserRegistrationInfo) {
     this.http.post(`${this.apiUrl}/public/auth/signup`, user, this.httpOptions).subscribe(
       (res: OnLoginAnswer): OnLoginAnswer => {
-        console.log('Info send');
         if (res.error) {
           this.messageService.add({severity: 'error', summary: 'Server error', detail: res.message, life: 5000});
           return res;
@@ -66,5 +65,12 @@ export class AuthService {
       },
       (error) => {this.messageService.add({severity: 'error', summary: 'Server error', detail: error.message, life: 5000});
     });
+  }
+  /**
+   * вихід із стану авторизації
+   */
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
   }
 }
