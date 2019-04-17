@@ -20,9 +20,9 @@ export class UserProfileComponent implements OnInit {
   public authUserId: string;
 
   constructor(
-    private activeRoute: ActivatedRoute,
-    private userService: UserService,
-    private auth: AuthGlobalService
+    public activeRoute: ActivatedRoute,
+    public userService: UserService,
+    public auth: AuthGlobalService
   ) {}
 
   /**
