@@ -23,19 +23,25 @@ export class UserProfileImagesComponent implements OnInit {
      * перелік зображень користувача для відображення
      */
     public images: Img[];
+    public uploadPhotosModalIsOpened = false;
 
 
   constructor(
     private userService: UserService,
   ) {}
   /**
-   * на етапі старту компоненти отримуємо зображення через сервіс
+   * на етапі старту компоненти запускаэмо метод на заватаженя зображень через сервіс
    */
   ngOnInit() {
+    this.getImages();
+  }
+/**
+ * метод отримання зображень користувача з серверу
+ */
+  getImages() {
     this.userService.getUserPhotos(this.userId).subscribe((imageArray: Img[]) => {
       this.images = imageArray;
-      }
-    );
+      });
   }
 
 }

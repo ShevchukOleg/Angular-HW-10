@@ -3,7 +3,7 @@
     <div  class="container pos-relative ng-star-inserted" infinitescroll="">
       <div  class="row ng-star-inserted">
         <div  class="col-12 col-lg-6 col-xl-4 h-300 ng-star-inserted py-3" *ngIf="curentUser == userId">
-          <div  class="upload-photo-btn d-flex flex-column justify-content-center align-items-center bg-light-secondary cur-pointer transition">
+          <div (click)="uploadPhotosModalIsOpened = true"  class="upload-photo-btn d-flex flex-column justify-content-center align-items-center bg-light-secondary cur-pointer transition">
             <div  class="upload-photo-img"></div>
             <span  class="text-color-light">Upload photos</span>
           </div>
@@ -28,3 +28,9 @@
     </div>
   </div>
 </div>
+
+<app-upload-photos 
+*ngIf="uploadPhotosModalIsOpened"
+(onClose)="uploadPhotosModalIsOpened = false"
+(onUploadEnd)="uploadPhotosModalIsOpened = false; getImages()"
+></app-upload-photos>

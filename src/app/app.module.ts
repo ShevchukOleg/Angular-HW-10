@@ -9,8 +9,6 @@ import { MessageService } from 'primeng/api';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HeaderModule } from './modules/header/header.module';
 
-
-
 @NgModule({
   declarations: [
     AppComponent
