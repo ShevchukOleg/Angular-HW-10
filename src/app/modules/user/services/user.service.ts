@@ -5,7 +5,9 @@ import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { Img } from '../interfaces/img';
 import { ImgArray } from '../interfaces/imageArray';
+import { ImageData } from '../../images-modal/interfaces/imageData';
 import { map } from 'rxjs/operators';
+
 
 @Injectable()
 export class UserService {

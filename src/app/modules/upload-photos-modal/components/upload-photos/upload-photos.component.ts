@@ -17,19 +17,29 @@ export class UploadPhotosComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * метод закриття модального вікна
+   */
   closeModal() {
     this.onClose.emit();
   }
-
+/**
+ * метод поєднання декількох файлів для завантаження
+ * @param input - поле вводу даних
+ */
   addPhotos(input) {
     this.photosArray = this.photosArray.concat(...input.files);
   }
-
+/**
+ * метод видалення зайвого обраного фото
+ * @param name - ім'я зображення що видаляється
+ */
   deletePhoto(name) {
     this.photosArray = this.photosArray.filter((photo) => photo.name !== name);
   }
-
+  /**
+   * відвантаження данних на сервер через сервіс
+   */
   uploadPhotos() {
     this.toServer.uploadPhotos(this.photosArray).subscribe((res) => {
       this.onUploadEnd.emit();

@@ -9,7 +9,7 @@
           </div>
         </div>
         <div  class="col-12 col-lg-6 col-xl-4 h-300 ng-star-inserted py-3" *ngFor='let image of images'>
-          <div  class="selfie-item pos-relative overflow-hidden cur-pointer text-color-white h-100">
+          <div (click)="showImageInfoModal(image._id)" class="selfie-item pos-relative overflow-hidden cur-pointer text-color-white h-100">
             <img  alt="" style="opacity: 1; transition: opacity 0.5s ease-in 0s;" [src]="image.url">
             <div  class="selfie-item-overlay d-flex flex-column justify-content-between pos-absolute transition">
               <div  class="overlay-top d-flex">
@@ -28,9 +28,13 @@
     </div>
   </div>
 </div>
-
-<app-upload-photos 
+<app-upload-photos
 *ngIf="uploadPhotosModalIsOpened"
 (onClose)="uploadPhotosModalIsOpened = false"
 (onUploadEnd)="uploadPhotosModalIsOpened = false; getImages()"
 ></app-upload-photos>
+<app-image-info-modal
+*ngIf = "showImageDataModal"
+[imageId]="shownImageId"
+(onClose)="showImageDataModal = false"
+></app-image-info-modal>

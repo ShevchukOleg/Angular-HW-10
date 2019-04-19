@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Img } from '../../interfaces/img';
-import { ImgArray } from '../../interfaces/imageArray';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -23,7 +22,9 @@ export class UserProfileImagesComponent implements OnInit {
      * перелік зображень користувача для відображення
      */
     public images: Img[];
+    public shownImageId: string;
     public uploadPhotosModalIsOpened = false;
+    public showImageDataModal = false;
 
 
   constructor(
@@ -43,5 +44,12 @@ export class UserProfileImagesComponent implements OnInit {
       this.images = imageArray;
       });
   }
-
+/**
+ * метод що оголошує та активує відкриття вікна данних про обране зображення
+ * @param imageId - ідентифікатор обраного зображення
+ */
+  showImageInfoModal(imageId) {
+    this.shownImageId = imageId;
+    this.showImageDataModal = true;
+  }
 }

@@ -1,0 +1,48 @@
+<div class="modal d-block" tabindex="-1" role="dialog">
+  <div class="modal-container">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+          <button (click)="closeModal()" class="btn-close-modal-inside pos-absolute">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="current-image-info d-flex">
+            <div class="author-info d-flex align-items-center ">
+              <a class="author-photo flex-shrink-0 overflow-hidden">
+                <img alt="" [src]="fullImageInfo?.owner.avatar">
+              </a>
+              <div class="d-flex flex-column overflow-hidden">
+                <a class="author-name text-overflow-ellipsis">{{fullImageInfo?.owner.full_name}}</a>
+                <span class="author-country text-color-gray text-overflow-ellipsis">{{fullImageInfo?.owner.city}}</span>
+              </div>
+            </div>
+            <div  class="photo-stats d-flex justify-content-center cur-default">
+              <div class="stats-views stats-item active d-flex flex-column align-items-center justify-content-end transition">
+                <span class="stats-count">{{fullImageInfo?.views.length}}</span>
+                <span class="stats-desc text-uppercase">Views</span>
+              </div>
+              <div class="stats-likes stats-item d-flex flex-column align-items-center justify-content-end transition">
+                <span class="stats-count">{{fullImageInfo?.likes.length}}</span>
+                <span class="stats-desc text-uppercase">Likes</span>
+              </div>
+              <div class="stats-glories stats-item d-flex flex-column align-items-center justify-content-end transition">
+                <span class="stats-count">{{fullImageInfo?.glories.length}}</span>
+                <span class="stats-desc text-uppercase">Glories</span>
+              </div>
+            </div>
+          </div>
+          <div class="current-image mt-3">
+              <img [src]="fullImageInfo?.url" alt="" data-id-modal-img=''>
+          </div>
+          <div class="current-image-comments-wrap mt-3"></div>
+          <div class="add-comment-form mt-4">
+            <form class='form-comment'>
+                <input type="text" name="comment" id="comment" placeholder="Write a comment" class="form-control form-control-sm comment">
+                <button type="submit" class="btn btn-primary btn-sm mt-3 check">Submit</button>
+                <button type="reset" class="btn btn-warning btn-sm mt-3 invisible">Cancel</button>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
