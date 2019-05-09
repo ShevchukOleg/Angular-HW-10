@@ -10,11 +10,11 @@
         </div>
         <div  class="col-12 col-lg-6 col-xl-4 h-300 ng-star-inserted py-3" *ngFor='let image of images'>
           <div (click)="showImageInfoModal(image._id)" class="selfie-item pos-relative overflow-hidden cur-pointer text-color-white h-100">
-            <img  alt="" style="opacity: 1; transition: opacity 0.5s ease-in 0s;" [src]="image.url">
+            <img  alt="userProfileImage" style="opacity: 1; transition: opacity 0.5s ease-in 0s;" [src]="image.url">
             <div  class="selfie-item-overlay d-flex flex-column justify-content-between pos-absolute transition">
               <div  class="overlay-top d-flex">
                 <button  class="btn-delete-photo ml-auto transition" *ngIf="curentUser == userId">
-                  <i  class="fa-icon fas fa-trash"></i>
+                  <i  (click)="removeImage(image._id, image.url, $event)" class="fa fa-trash"></i>
                 </button>
               </div>
               <div  class="overlay-bottom">
@@ -30,8 +30,8 @@
 </div>
 <app-upload-photos
 *ngIf="uploadPhotosModalIsOpened"
-(onClose)="uploadPhotosModalIsOpened = false"
-(onUploadEnd)="uploadPhotosModalIsOpened = false; getImages()"
+(close)="uploadPhotosModalIsOpened = false"
+(uploadEnd)="uploadPhotosModalIsOpened = false; getImages()"
 ></app-upload-photos>
 <app-image-info-modal
 *ngIf = "showImageDataModal"

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Img } from '../../interfaces/img';
 import { UserService } from '../../services/user.service';
+import { ServerResponse } from '../../../../globalInterfaces/server-response';
 
 @Component({
   selector: 'app-user-profile-images',
@@ -17,6 +18,9 @@ export class UserProfileImagesComponent implements OnInit {
      * Дані про потчного користувача
      */
     @Input() curentUser: string;
+
+
+    @Output() personalDataChanges = new EventEmitter();
 
     /**
      * перелік зображень користувача для відображення
@@ -43,6 +47,7 @@ export class UserProfileImagesComponent implements OnInit {
     this.userService.getUserPhotos(this.userId).subscribe((imageArray: Img[]) => {
       this.images = imageArray;
       });
+    this.personalDataChanges.emit(true);
   }
 /**
  * метод що оголошує та активує відкриття вікна данних про обране зображення
@@ -51,5 +56,22 @@ export class UserProfileImagesComponent implements OnInit {
   showImageInfoModal(imageId) {
     this.shownImageId = imageId;
     this.showImageDataModal = true;
+  }
+
+  removeImage(imageId: string, imageUrl: string, event: Event) {
+    event.stopPropagation();
+    this.userService.removeImage( this.userId, imageId, imageUrl).subscribe(
+      (res: ServerResponse) => {
+        if (!res.error) {
+          this.getImages();
+          this.personalDataChanges.emit(true);
+        }
+      },
+      (error) => console.log(error)
+      );
+
+
+
+
   }
 }

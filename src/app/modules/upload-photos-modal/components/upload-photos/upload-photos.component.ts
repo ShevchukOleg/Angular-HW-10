@@ -8,8 +8,8 @@ import { UploadPhotosService } from '../../services/upload-photos.service';
   styleUrls: ['./upload-photos.component.css']
 })
 export class UploadPhotosComponent implements OnInit {
-  @Output() onClose: EventEmitter<any> = new EventEmitter();
-  @Output() onUploadEnd: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() uploadEnd: EventEmitter<any> = new EventEmitter();
   public photosArray = [];
   constructor(
     public toServer: UploadPhotosService
@@ -21,14 +21,37 @@ export class UploadPhotosComponent implements OnInit {
    * метод закриття модального вікна
    */
   closeModal() {
-    this.onClose.emit();
+    this.close.emit();
   }
 /**
- * метод поєднання декількох файлів для завантаження
+ * метод поєднання декількох файлів для завантаження, що виключає дублі
  * @param input - поле вводу даних
  */
   addPhotos(input) {
-    this.photosArray = this.photosArray.concat(...input.files);
+    // потрібно покращити метод
+    // this.photosArray = this.photosArray.filter((file, index, self) => {
+    //   return self.indexOf(file) === index;
+    // });
+
+    function clearDuplicate(arr: Array<any>) {
+      let resArr = [];
+      let obj = {};
+      let baseArrayLength: number = arr.length;
+
+      for (let i = 0; i < baseArrayLength; ++i) {
+        obj[arr[i].name] = arr[i];
+      }
+
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          resArr.push(obj[key]);
+        }
+      }
+
+      return resArr;
+    }
+
+    this.photosArray = clearDuplicate(this.photosArray.concat(...input.files));
   }
 /**
  * метод видалення зайвого обраного фото
@@ -41,8 +64,9 @@ export class UploadPhotosComponent implements OnInit {
    * відвантаження данних на сервер через сервіс
    */
   uploadPhotos() {
-    this.toServer.uploadPhotos(this.photosArray).subscribe((res) => {
-      this.onUploadEnd.emit();
+    this.toServer.uploadPhotos(this.photosArray).subscribe(
+      (res) => {
+      this.uploadEnd.emit();
     });
   }
 }

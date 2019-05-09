@@ -10,14 +10,16 @@ import { AuthGlobalService } from '../../../../services/auth-global.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  /** користувач дані якого виведено на сторінку */
+  /** користувач, дані якого виведено на сторінку (може не співпадати з авторизованим користувачем)  */
   public user: User;
-  /** Ідентифікатор */
+  /** Ідентифікатор користувача чию сторінку переглядають */
   public activeId: string;
   /** Поточна активна вкладка */
   public activetab = 'selfies';
-
+  /** Ідентифікатор зареєстрованого користувача */
   public authUserId: string;
+  /** стан модульного вікна */
+  public uploadCoverModalIsOpened = false;
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -32,8 +34,22 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.activeId = this.activeRoute.snapshot.params.id;
     this.authUserId = this.auth.getUserId;
-    this.userService.getUserInfo(this.activeId).subscribe((data: User) => {
-      this.user = data;
-    });
+    this.getUserInfo(this.activeId);
+  }
+/**
+ * getUserInfo - метод отримання данних про користувача за ідентифікатором
+ * @param userId - ідетнифікатор користвувача, чиї дані хочемо переглянути на сторінці
+ */
+  public getUserInfo(userId: string) {
+    this.userService.getUserInfo(userId).subscribe(
+      (data) => this.user = data
+    );
+  }
+  /**
+   * uploadCover - метод для зміни тла сторінки
+   */
+  public uploadCover() {
+    console.log('New cover!');
+    this.uploadCoverModalIsOpened = true;
   }
 }

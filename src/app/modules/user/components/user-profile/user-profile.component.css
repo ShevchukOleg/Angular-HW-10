@@ -39,6 +39,29 @@
   margin-bottom: 8px;
 }
 
+.user-cover {
+  height: 400px;
+  min-height: 400px;
+}
+
+.user-cover .upload-cover-button {
+  transition: 0.3s;
+  position: absolute;
+  opacity: 0.1;
+  bottom: 100px;
+  left: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, .5);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.user-cover:hover .upload-cover-button {
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.6s;
+}
+
 .fa, .fas {
   font-weight: 900;
 }

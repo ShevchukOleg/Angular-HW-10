@@ -1,3 +1,12 @@
 .modal {
   background-color: rgba(0, 0, 0, .7);
 }
+.modal-dialog-m {
+  max-width: 700px;
+  margin: 1.75rem auto;
+  position: relative;
+  width: auto;
+  /* margin: 0.5rem; */
+  pointer-events: none;
+
+}

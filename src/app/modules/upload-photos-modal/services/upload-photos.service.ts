@@ -15,7 +15,6 @@ export class UploadPhotosService {
   ) { }
 
   uploadPhotos(photos) {
-    console.log(photos);
     const formData = new FormData();
     photos.forEach((photo) => formData.append('userPhotos', photo));
 

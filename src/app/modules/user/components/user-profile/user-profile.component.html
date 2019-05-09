@@ -1,8 +1,9 @@
 <ng-container>
-  <div class="section user-profile-wrap pb-5">
-    <div class="user-cover" *ngIf="user" [ngStyle]="{
-      'background': 'url(' + user?.cover + ') no-repeat center/cover ', 
-      'height': '400px'}">
+  <div class="section user-profile-wrap">
+    <div class="user-cover" *ngIf="user" [ngStyle]="{'background': 'url('+ user?.cover + ') no-repeat center/cover '}">
+      <div *ngIf="authUserId===activeId" class="containet h-100 pos-relative">
+        <button class="upload-cover-button" (click)="uploadCover()">Change cover</button>
+      </div>
     </div>
     <div  class="profile-panel bg-light-secondary justify-content-center">
       <div  class="container d-flex flex-column flex-lg-row align-items-center">
@@ -29,7 +30,7 @@
           <div  class="tabs-control d-flex flex-column flex-sm-row align-self-center text-color-gray">
             <a  class="tab d-flex flex-column align-items-center transition" (click)="activetab = 'selfies'" [ngClass]="{'active': activetab == 'selfies'}">
               <span  class="tab-count">{{ user?.my_images.length }}</span>
-              <span  class="tab-name text-uppercase">No. Selfies</span>
+              <span  class="tab-name text-uppercase">Світлин</span>
             </a>
             <a  class="tab d-flex flex-column align-items-center transition" (click)="activetab = 'favourites'" [ngClass]="{'active': activetab == 'favourites'}">
               <span  class="tab-count">{{ user?.favourites.length }}</span>
@@ -47,9 +48,10 @@
         </div>
       </div>
       <div class="user-tab-content">
-        <app-user-profile-images [userId]='activeId' [curentUser]="authUserId" *ngIf="activetab == 'selfies'"></app-user-profile-images>
+        <app-user-profile-images [userId]='activeId' (personalDataChanges) = 'getUserInfo(activeId)' [curentUser]="authUserId" *ngIf="activetab == 'selfies'"></app-user-profile-images>
         <app-user-profile-favourites *ngIf="activetab == 'favourites'"></app-user-profile-favourites>
         <app-user-profile-follows *ngIf="activetab == 'followers' || activetab == 'followings'"></app-user-profile-follows>
       </div>
   </div>
 </ng-container>
+<app-upload-photos *ngIf="uploadCoverModalIsOpened"></app-upload-photos>
