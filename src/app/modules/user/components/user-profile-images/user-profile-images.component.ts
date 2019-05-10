@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Img } from '../../interfaces/img';
 import { UserService } from '../../services/user.service';
 import { ServerResponse } from '../../../../globalInterfaces/server-response';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user-profile-images',
@@ -26,13 +27,18 @@ export class UserProfileImagesComponent implements OnInit {
      * перелік зображень користувача для відображення
      */
     public images: Img[];
+    /** ідентифікатор зображення що відобраається */
     public shownImageId: string;
+    /** стан модального вікна відвантаження зображень */
     public uploadPhotosModalIsOpened = false;
+    /** стан модального вікна інформації про зображення */
     public showImageDataModal = false;
+    /** об'єкт для відвантаження */
+    public uploadImageType: string;
 
 
   constructor(
-    private userService: UserService,
+    private userService: UserService, private messageService: MessageService
   ) {}
   /**
    * на етапі старту компоненти запускаэмо метод на заватаженя зображень через сервіс
@@ -67,10 +73,8 @@ export class UserProfileImagesComponent implements OnInit {
           this.personalDataChanges.emit(true);
         }
       },
-      (error) => console.log(error)
+      (error) => this.messageService.add({severity: 'error', summary: 'Error on server', detail: error.message })
       );
-
-
 
 
   }

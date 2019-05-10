@@ -18,8 +18,10 @@ export class UserProfileComponent implements OnInit {
   public activetab = 'selfies';
   /** Ідентифікатор зареєстрованого користувача */
   public authUserId: string;
-  /** стан модульного вікна */
-  public uploadCoverModalIsOpened = false;
+  /** стан модального вікна */
+  public uploadModalIsOpened = false;
+  /** об'єкт для відвантаження */
+  public uploadImageType: string;
 
   constructor(
     public activeRoute: ActivatedRoute,
@@ -49,7 +51,13 @@ export class UserProfileComponent implements OnInit {
    * uploadCover - метод для зміни тла сторінки
    */
   public uploadCover() {
+    this.uploadImageType = 'cover';
     console.log('New cover!');
-    this.uploadCoverModalIsOpened = true;
+    this.uploadModalIsOpened = true;
+  }
+
+  public chengeAvatar() {
+    this.uploadImageType = 'avatar';
+    this.uploadModalIsOpened = true;
   }
 }

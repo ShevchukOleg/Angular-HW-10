@@ -44,10 +44,8 @@ export class UserService {
       body: JSON.stringify({
         image_id: `${imageId}`,
         image_url: `users-photos/${imageUrl.slice(imageUrl.lastIndexOf('/') + 1)}`
-        }),
+        })
     };
-
-    console.log(userId, options.body);
     return this.http.delete<ServerResponse>(`${this.apiUrl}/public/users/remove-photo/${userId}`, options );
   }
 }

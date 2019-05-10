@@ -9,7 +9,7 @@ import { ImageData } from '../../interfaces/imageData';
 })
 export class ImageInfoModalComponent implements OnInit {
   @Input() imageId: string;
-  @Output() onClose: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<any> = new EventEmitter();
   public fullImageInfo: ImageData;
 
   constructor(
@@ -31,6 +31,6 @@ export class ImageInfoModalComponent implements OnInit {
    * метод закриття модального вікна через перечаду події в батьківську компоненту
    */
   public closeModal() {
-    this.onClose.emit();
+    this.close.emit();
   }
 }
