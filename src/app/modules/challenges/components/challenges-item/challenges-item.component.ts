@@ -21,6 +21,6 @@ export class ChallengesItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    console.log(`${Date.now()} component class init`);
   }
 }

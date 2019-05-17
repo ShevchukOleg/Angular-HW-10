@@ -54,4 +54,9 @@
       </div>
   </div>
 </ng-container>
-<app-upload-photos [uploadImageType]='uploadImageType' (close)="uploadModalIsOpened = false" *ngIf="uploadModalIsOpened"></app-upload-photos>
+<app-upload-photos
+[uploadImageType]='uploadImageType'
+(uploadEnd)="uploadModalIsOpened = false; getUserInfo(activeId)"
+(close)="uploadModalIsOpened = false"
+*ngIf="uploadModalIsOpened">
+</app-upload-photos>

@@ -30,6 +30,7 @@ export class TimeCounterDirective implements OnInit, OnDestroy {
 
   // оскількт на сервері всі події закінчились, змінено час для перевірки функціоналу
   ngOnInit(): void {
+    console.log(`${Date.now()} directiv init`);
     const count = this.container.createEmbeddedView(this.template);
     if (this.comparator() || !this.isActive) {
       count.rootNodes[0].textContent = 'Closed';
@@ -66,6 +67,7 @@ export class TimeCounterDirective implements OnInit, OnDestroy {
     if (this.timeLeft > (8.64e+7)) {
       return `${Math.floor(this.timeLeft / (8.64e+7))} days`;
     } else {
+      // tslint:disable-next-line:max-line-length
       return `${Math.floor(this.timeLeft / (3.6e+6))}:${Math.floor(this.timeLeft % (3.6e+6) / (6e+4))}:${Math.floor(this.timeLeft % (6e+4) / 1000)}`;
     }
   }

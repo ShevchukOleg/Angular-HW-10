@@ -63,7 +63,11 @@ export class UserProfileImagesComponent implements OnInit {
     this.shownImageId = imageId;
     this.showImageDataModal = true;
   }
-
+  /** метод видалення зображення з колекції користувача
+   * @param imageId - ідентифікатор обраного зображення
+   * @param imageUrl - повний URL зображення з відповіді серверу
+   * @param event - подія
+   */
   removeImage(imageId: string, imageUrl: string, event: Event) {
     event.stopPropagation();
     this.userService.removeImage( this.userId, imageId, imageUrl).subscribe(

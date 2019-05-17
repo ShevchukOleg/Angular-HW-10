@@ -14,11 +14,11 @@ export class ColorChangerDirective {
     this.nativeElement = nativeElementWrapper.nativeElement;
    }
 
-  // @HostListener('mouseenter') onMouseEsnter() {
+  // @HostListener('mouseenter') onMouseEnter() {
   //   this.colorChanger('orange');
   // }
 
-  @HostListener('mouseenter', [`$event.target`]) onMouseEsnter(targetElement) {
+  @HostListener('mouseenter', [`$event.target`]) onMouseEnter(targetElement) {
     targetElement.style.color = this.color;
   }
 

@@ -20,4 +20,14 @@ export class UploadPhotosService {
 
     return this.http.post(`${this.apiUrl}/public/users/upload-photos/${this.authService.getUserId}`, formData);
   }
+
+  uploadCover(file) {
+    const formData = new FormData();
+    formData.append('coverImg', file);
+    return this.http.post(`${this.apiUrl}/public/users/upload-cover/${this.authService.getUserId}`, formData);
+  }
+
+  uploadAvatar(file) {
+    console.log('Метод в розробціб принято на відправку:', file);
+  }
 }

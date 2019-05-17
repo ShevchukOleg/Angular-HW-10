@@ -8,15 +8,36 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="modal-user-photos-container mb-3">
+        <div class="modal-user-photos-container mb-3" *ngIf="uploadImage">
             <ul class="list-group">
-              <li class="list-group-item d-flex align-items-center" *ngFor="let photo of photosArray">
-                <span>{{ photo.name }}</span>
-                <button class="btn btn-danger btn-sm ml-auto" (click)="deletePhoto(photo.name)">delete</button>
+              <li class="list-group-item d-flex align-items-center">
+                <span>{{ uploadImage.name }}</span>
+                <button class="btn btn-danger btn-sm ml-auto" (click)="deletePhoto(uploadImage.name)">delete</button>
               </li>
             </ul>
         </div>
-        <button class="btn btn-success">
+        <div class="modal-user-photos-container mb-3" *ngIf="photosArray.length">
+          <ul class="list-group">
+            <li class="list-group-item d-flex align-items-center" *ngFor="let photo of photosArray">
+              <span>{{ photo.name }}</span>
+              <button class="btn btn-danger btn-sm ml-auto" (click)="deletePhoto(photo.name)">delete</button>
+            </li>
+          </ul>
+      </div>
+        <button  class="btn btn-success">
+          <input
+          [appMultiplyAtributeSwitch]='uploadImageType'
+          type="file"
+          name="upload-photo"
+          id="upload-photo"
+          class="d-none"
+          (change)="addPhotos($event.target)"
+          >
+          <label class="mb-0" for="upload-photo">Add photos</label>
+        </button>
+        <!--  !! розмітка для варіанту з ngSwitch
+        <div [ngSwitch]="type">
+          <button *ngSwitchCase="'multi'" [appMultiplyAtributeSwitch]='uploadImageType' class="btn btn-success">
             <input
             type="file"
             name="upload-photo"
@@ -26,7 +47,18 @@
             (change)="addPhotos($event.target)"
           >
           <label class="mb-0" for="upload-photo">Add photos</label>
-        </button>
+          </button>
+          <button *ngSwitchCase="'single'" class="btn btn-success">
+              <input
+              type="file"
+              name="upload-photo"
+              id="upload-photo"
+              class="d-none"
+              (change)="addPhotos($event.target)"
+            >
+            <label class="mb-0" for="upload-photo">Add photos</label>
+          </button>
+        </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>

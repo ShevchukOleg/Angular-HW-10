@@ -8,7 +8,6 @@ import { LikesViewPipe } from './pipes/likes-view.pipe';
 import { AwardRoundPipe } from './pipes/award-round.pipe';
 import { ColorChangerDirective } from './directives/color-changer.directive';
 
-
 @NgModule({
   declarations: [
     ChallengesPageComponent,
