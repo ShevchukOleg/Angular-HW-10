@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
 import { AuthGlobalService } from '../../../../services/auth-global.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,7 +27,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     public activeRoute: ActivatedRoute,
     public userService: UserService,
-    public auth: AuthGlobalService
+    public auth: AuthGlobalService,
+    public messageService: MessageService
   ) {}
 
   /**
@@ -34,7 +36,9 @@ export class UserProfileComponent implements OnInit {
    * робиться запит на отриманя даних про користувача на сервер
    */
   ngOnInit() {
-    this.activeId = this.activeRoute.snapshot.params.id;
+    // this.activeId = this.activeRoute.snapshot.params.id;
+    this.activeRoute.paramMap.subscribe(params => this.activeId = params.get('id')
+    );
     this.authUserId = this.auth.getUserId;
     this.getUserInfo(this.activeId);
   }
@@ -44,7 +48,10 @@ export class UserProfileComponent implements OnInit {
  */
   public getUserInfo(userId: string) {
     this.userService.getUserInfo(userId).subscribe(
-      (data) => this.user = data
+      (data) => this.user = data,
+      (error) => {
+        this.messageService.add({severity: 'error', summary: 'Error on server', detail: error.message });
+      }
     );
   }
   /**

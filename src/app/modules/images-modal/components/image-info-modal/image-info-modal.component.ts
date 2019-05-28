@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output,  EventEmitter } from '@angular/core';
 import { ImageInfoService } from '../../services/image-info.service';
 import { ImageData } from '../../interfaces/imageData';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-image-info-modal',
@@ -13,7 +14,8 @@ export class ImageInfoModalComponent implements OnInit {
   public fullImageInfo: ImageData;
 
   constructor(
-    private imageInfoService: ImageInfoService
+    private imageInfoService: ImageInfoService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -23,9 +25,10 @@ export class ImageInfoModalComponent implements OnInit {
  * метод для заватнаження через срвіс даних про обране зображення
  */
   public loadImageInfo() {
-    this.imageInfoService.getPhotoInfo(this.imageId).subscribe((image: ImageData) => {
-      this.fullImageInfo = image;
-    });
+    this.imageInfoService.getPhotoInfo(this.imageId).subscribe(
+      (image: ImageData) => this.fullImageInfo = image,
+      (error) => this.messageService.add({severity: 'error', summary: 'Error on server', detail: error.message })
+      );
   }
   /**
    * метод закриття модального вікна через перечаду події в батьківську компоненту

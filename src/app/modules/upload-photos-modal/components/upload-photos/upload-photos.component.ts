@@ -26,18 +26,6 @@ export class UploadPhotosComponent implements OnInit {
    * темплейтів через NgSwitch і переприсвоєння параметрів при запуску класу компоненти
    */
   ngOnInit() {
-    // !! для ngSwitch
-    // switch (this.uploadImageType) {
-    //   case 'avatar':
-    //   this.type = 'single';
-    //   break;
-    //   case 'userImage':
-    //   this.type = 'multi';
-    //   break;
-    //   case 'cover':
-    //   this.type = 'single';
-    //   break;
-    // }
     console.log('Ініціалізація класу компоненти', this.uploadImageType, Date.now());
   }
   /**
@@ -52,37 +40,35 @@ export class UploadPhotosComponent implements OnInit {
  * @param input - поле вводу даних
  */
   addPhotos(input) {
-    // потрібно покращити метод
-    // this.photosArray = this.photosArray.filter((file, index, self) => {
-    //   return self.indexOf(file) === index;
-    // });
-
-    function clearDuplicate(arr: Array<any>) {
-      let resArr = [];
-      let obj = {};
-      let baseArrayLength: number = arr.length;
-
-      for (let i = 0; i < baseArrayLength; ++i) {
-        obj[arr[i].name] = arr[i];
-      }
-
-      for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          resArr.push(obj[key]);
-        }
-      }
-
-      return resArr;
-    }
-
     if (this.uploadImageType === 'avatar' || this.uploadImageType === 'cover') {
       const [newImage] = input.files;
       this.uploadImage = newImage;
       console.log(this.uploadImageType, this.uploadImage);
     }  else {
-      this.photosArray = clearDuplicate(this.photosArray.concat(...input.files));
+      this.photosArray = this.clearDuplicate(this.photosArray.concat(...input.files));
       console.log(this.uploadImageType, this.photosArray);
     }
+  }
+  /**
+   * clearDuplicate - метод фільтрації від повторень
+   * @param arr - масив данних з ймовірними повторенями
+   */
+  public clearDuplicate(arr: Array<any>) {
+    let resArr = [];
+    let obj = {};
+    let baseArrayLength: number = arr.length;
+
+    for (let i = 0; i < baseArrayLength; ++i) {
+      obj[arr[i].name] = arr[i];
+    }
+
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        resArr.push(obj[key]);
+      }
+    }
+
+    return resArr;
   }
 /**
  * метод видалення зайвого обраного фото
@@ -100,52 +86,21 @@ export class UploadPhotosComponent implements OnInit {
    * відвантаження данних на сервер через сервіс
    */
   uploadPhotos() {
-
-    switch (this.uploadImageType) {
-      case 'userImage':
-        if (this.photosArray.length) {
-          this.toServer.uploadPhotos(this.photosArray).subscribe(
-            (res: ServerResponseOnImagePost) => {
-              if (!res.error) {
-                this.messageService.add({severity: 'success', summary: 'Server response:', detail: res.message});
-                this.uploadEnd.emit();
-              } else {
-                this.messageService.add({severity: 'error', summary: 'Server response:', detail: res.message});
-                this.uploadEnd.emit();
-              }
-            },
-            (error) => console.log(error)
-          );
+    if (this.photosArray.length || this.uploadImage) {
+      this.toServer.uploadUserData(this.uploadImageType, this.uploadImage, this.photosArray).subscribe((res: ServerResponseOnImagePost) => {
+        if (!res.error) {
+          this.messageService.add({severity: 'success', summary: 'Server response:', detail: res.message});
+          this.uploadEnd.emit();
         } else {
-          this.messageService.add({severity: 'error', summary: 'Aplication notification:', detail: 'No data was uploaded'});
+          this.messageService.add({severity: 'error', summary: 'Server response:', detail: res.message});
           this.uploadEnd.emit();
         }
-        break;
-
-      case 'avatar':
-      this.toServer.uploadAvatar(this.uploadImage);
-      this.uploadEnd.emit();
-      break;
-
-      case 'cover':
-        if (this.uploadImage) {
-          this.toServer.uploadCover(this.uploadImage).subscribe(
-            (res: ServerResponseOnImagePost) => {
-              if (!res.error) {
-                this.messageService.add({severity: 'success', summary: 'Server response:', detail: res.message});
-                this.uploadEnd.emit();
-              } else {
-                this.messageService.add({severity: 'error', summary: 'Server response:', detail: res.message});
-                this.uploadEnd.emit();
-              }
-            },
-            (error) => console.log(error)
-          );
-        } else {
-          this.messageService.add({severity: 'error', summary: 'Aplication notification:', detail: 'No data was uploaded'});
-          this.uploadEnd.emit();
-        }
-        break;
-    }
+      },
+      (error) => console.log(error)
+    );
+    } else {
+            this.messageService.add({severity: 'error', summary: 'Aplication notification:', detail: 'No data was uploaded'});
+            this.uploadEnd.emit();
+      }
   }
 }

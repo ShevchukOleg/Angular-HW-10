@@ -28,6 +28,22 @@ export class UploadPhotosService {
   }
 
   uploadAvatar(file) {
-    console.log('Метод в розробціб принято на відправку:', file);
+    console.log('Метод в розробці, принято на відправку:', file);
+  }
+
+  uploadUserData(descriptor: string, file, filesArr) {
+    switch (descriptor) {
+      case 'avatar':
+      console.log('Метод в розробці, принято на відправку:', file);
+      break;
+      case 'cover':
+      const formData = new FormData();
+      formData.append('coverImg', file);
+      return this.http.post(`${this.apiUrl}/public/users/upload-cover/${this.authService.getUserId}`, formData);
+      case 'userImage':
+      const formdata = new FormData();
+      filesArr.forEach((photo) => formdata.append('userPhotos', photo));
+      return this.http.post(`${this.apiUrl}/public/users/upload-photos/${this.authService.getUserId}`, formdata);
+    }
   }
 }

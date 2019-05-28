@@ -35,7 +35,6 @@ export class AuthService {
    * @param password - пероль користувача
    */
   login(email: string, password: string): Observable<OnLoginAnswer> {
-
     return this.http.post<OnLoginAnswer>(`${this.apiUrl}/public/auth/login`, { email, password }, this.httpOptions).pipe(
       map((res: OnLoginAnswer): OnLoginAnswer => {
         if (!res.error) {

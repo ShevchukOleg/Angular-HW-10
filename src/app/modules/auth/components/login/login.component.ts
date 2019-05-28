@@ -38,12 +38,14 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
 
-    this.authService.login(email, password).subscribe((data: OnLoginAnswer) => {
+    this.authService.login(email, password).subscribe(
+      (data: OnLoginAnswer) => {
       if (data.error) {
         this.messageService.add({severity: 'error', summary: 'Server error', detail: data.message});
       } else {
         this.router.navigate([`/users/${data.id}`]);
       }
-    });
+      },
+      (error) =>  this.messageService.add({severity: 'error', summary: 'Server message', detail: error.message}));
   }
 }

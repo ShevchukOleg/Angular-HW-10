@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Challenge } from '../../interfaces/challenge';
 import { ChallengeService } from '../../services/challenge.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class ChallengesPageComponent implements OnInit {
   public tabCategory: string;
 
   constructor(
-    public challengesService: ChallengeService
+    public challengesService: ChallengeService,
+    public messageService: MessageService
   ) { }
 /**
  * при старті компоненти присвоюється стартова категорія змагань, віиконується запуск методу
@@ -37,8 +39,9 @@ export class ChallengesPageComponent implements OnInit {
   loadChallenges(tagType: string) {
     this.tabCategory = tagType;
 
-    this.challengesService.getChallenges(tagType).subscribe((data: Array<Challenge>) => {
-      this.challenges = data;
-    });
+    this.challengesService.getChallenges(tagType).subscribe(
+      (data: Array<Challenge>) => this.challenges = data,
+      (error) => (this.messageService.add({severity: 'error', summary: 'Server message:', detail: error.message}))
+    );
   }
 }
