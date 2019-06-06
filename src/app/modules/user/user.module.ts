@@ -9,10 +9,11 @@ import { UserProfileFavouritesComponent } from './components/user-profile-favour
 import { UserProfileFollowsComponent } from './components/user-profile-follows/user-profile-follows.component';
 import { UploadPhotosModalModule } from '../upload-photos-modal/upload-photos-modal.module';
 import { ImagesModalModule } from '../images-modal/images-modal.module';
+import { UserBackgroundComponent } from './components/user-background/user-background.component';
 
 
 @NgModule({
-  declarations: [UserProfileComponent, UserProfileImagesComponent, UserProfileFavouritesComponent, UserProfileFollowsComponent],
+  declarations: [UserProfileComponent, UserProfileImagesComponent, UserProfileFavouritesComponent, UserProfileFollowsComponent, UserBackgroundComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

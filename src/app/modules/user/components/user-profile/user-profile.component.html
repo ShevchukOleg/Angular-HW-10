@@ -1,10 +1,11 @@
 <ng-container>
   <div class="section user-profile-wrap">
-    <div class="user-cover" *ngIf="user" [ngStyle]="{'background': 'url('+ user?.cover + ') no-repeat center/cover '}">
+    <!-- <div class="user-cover" *ngIf="user" [ngStyle]="{'background': 'url('+ user?.cover + ') no-repeat center/cover '}">
       <div *ngIf="authUserId===activeId" class="containet h-100 pos-relative">
         <button class="upload-cover-button" (click)="uploadCover()">Change cover</button>
       </div>
-    </div>
+    </div> -->
+    <app-user-background (uploadCoverNotice)="uploadCover($event)" [user]="user" [activeId]="activeId" [authUserId]="authUserId"></app-user-background>
     <div  class="profile-panel bg-light-secondary justify-content-center">
       <div  class="container d-flex flex-column flex-lg-row align-items-center">
         <div  class="profile-section d-flex flex-grow-1 align-items-center py-2">
@@ -56,7 +57,7 @@
 </ng-container>
 <app-upload-photos
 [uploadImageType]='uploadImageType'
-(uploadEnd)="uploadModalIsOpened = false; getUserInfo(activeId)"
+(uploadEnd)="closeModal()"
 (close)="uploadModalIsOpened = false"
 *ngIf="uploadModalIsOpened">
 </app-upload-photos>

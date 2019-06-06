@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule' },
-  { path: 'users', loadChildren: './modules/user/user.module#UserModule', canActivate: [AuthGuard] },
-  { path: 'challenges', loadChildren: './modules/challenges/challenges.module#ChallengesModule', canActivate: [AuthGuard]},
-  { path: '', loadChildren: './modules/auth/auth.module#AuthModule'}
+  { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'users', loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule), canActivate: [AuthGuard] },
+  { path: 'challenges', loadChildren: () => import('./modules/challenges/challenges.module').then(m => m.ChallengesModule), canActivate: [AuthGuard]},
+  { path: '', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)}
 ];
 
 @NgModule({

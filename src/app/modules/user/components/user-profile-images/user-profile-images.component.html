@@ -32,7 +32,7 @@
 *ngIf="uploadPhotosModalIsOpened"
 (close)="uploadPhotosModalIsOpened = false"
 [uploadImageType]='uploadImageType'
-(uploadEnd)="uploadPhotosModalIsOpened = false; getImages()"
+(uploadEnd)="closeModal()"
 ></app-upload-photos>
 <app-image-info-modal
 *ngIf = "showImageDataModal"

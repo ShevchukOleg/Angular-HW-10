@@ -1,0 +1,5 @@
+<div class="user-cover" *ngIf="user" [ngStyle]="{'background': 'url('+ user?.cover + ') no-repeat center/cover '}">
+  <div *ngIf="authUserId===activeId" class="containetr h-100 pos-relative">
+    <button class="upload-cover-button" (click)="uploadCover()">Change cover</button>
+  </div>
+</div>

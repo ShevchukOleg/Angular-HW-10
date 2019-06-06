@@ -77,9 +77,12 @@ export class UserProfileImagesComponent implements OnInit {
           this.personalDataChanges.emit(true);
         }
       },
-      (error) => this.messageService.add({severity: 'error', summary: 'Error on server', detail: error.message })
+      (error) => this.messageService.add({severity: 'error', summary: 'Error on server', detail: error.message})
       );
+  }
 
-
+  public closeModal() {
+    this.uploadPhotosModalIsOpened = false;
+    this.getImages();
   }
 }

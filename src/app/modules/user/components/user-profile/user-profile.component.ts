@@ -57,7 +57,7 @@ export class UserProfileComponent implements OnInit {
   /**
    * uploadCover - метод для зміни тла сторінки
    */
-  public uploadCover() {
+  public uploadCover(e) {
     this.uploadImageType = 'cover';
     console.log('New cover!');
     this.uploadModalIsOpened = true;
@@ -66,5 +66,10 @@ export class UserProfileComponent implements OnInit {
   public chengeAvatar() {
     this.uploadImageType = 'avatar';
     this.uploadModalIsOpened = true;
+  }
+
+  public closeModal() {
+    this.uploadModalIsOpened = false;
+    this.getUserInfo(this.activeId);
   }
 }
